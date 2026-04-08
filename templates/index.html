@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log Summarizer</title>
+</head>
+<body>
+    <h1>🔷 Log Summarization Tool</h1>
+
+    <h2>Important Logs:</h2>
+    <ul>
+        {% for log in logs %}
+            <li>{{ log }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Summary:</h2>
+    <p>{{ summary }}</p>
+</body>
+</html>
