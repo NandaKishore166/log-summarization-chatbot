@@ -3,14 +3,21 @@ from preprocess import clean_logs
 from extractor import extract_events
 from summarizer import generate_summary
 import os
+
 app = Flask(__name__)
 
-with open("logs.txt") as f:
-    logs = f.readlines()
+# Load logs safely
+try:
+    with open("logs.txt") as f:
+        logs = f.readlines()
+except:
+    logs = ["No logs found"]
 
+# Process logs
 cleaned = clean_logs(logs)
 important = extract_events(cleaned)
 
+# Chatbot response logic
 def get_response(user_input):
     user_input = user_input.lower()
 
@@ -29,16 +36,19 @@ def get_response(user_input):
     else:
         return "Ask me about errors, warnings, or summary."
 
+# Home route
 @app.route("/")
 def home():
     return render_template("chat.html")
 
+# Chat API
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_msg = request.json["message"]
+    user_msg = request.json.get("message", "")
     reply = get_response(user_msg)
     return jsonify({"reply": reply})
 
+# Run app (Render compatible)
 if __name__ == "__main__":
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 5000))   # ✅ FIXED INDENTATION
+    app.run(host="0.0.0.0", port=port)
