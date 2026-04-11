@@ -18,6 +18,17 @@ except:
 cleaned = clean_logs(logs)
 important = extract_events(cleaned)
 
+# ✅ DevOps functions (PLACE HERE)
+def get_cpu():
+    return f"CPU Usage: {psutil.cpu_percent()}%"
+
+def get_memory():
+    mem = psutil.virtual_memory()
+    return f"Memory Usage: {mem.percent}%"
+
+def get_disk():
+    return f"Disk Usage: {psutil.disk_usage('/').percent}%"
+
 # Chatbot response logic
 def get_response(user_input):
     user_input = user_input.lower()
@@ -33,12 +44,18 @@ def get_response(user_input):
 
     elif "all logs" in user_input:
         return "\n".join(logs)
-    
+
     elif "cpu" in user_input:
-    return get_cpu()
+        return get_cpu()
+
+    elif "memory" in user_input:
+        return get_memory()
+
+    elif "disk" in user_input:
+        return get_disk()
 
     else:
-        return "Ask me about errors, warnings, or summary."
+        return "Ask me about errors, warnings, cpu, memory, or disk."
 
 # Home route
 @app.route("/")
@@ -54,14 +71,5 @@ def chat():
 
 # Run app (Render compatible)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))   # ✅ FIXED INDENTATION
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-    def get_cpu():
-    return f"CPU Usage: {psutil.cpu_percent()}%"
-
-def get_memory():
-    mem = psutil.virtual_memory()
-    return f"Memory Usage: {mem.percent}%"
-
-def get_disk():
-    return f"Disk Usage: {psutil.disk_usage('/').percent}%"
