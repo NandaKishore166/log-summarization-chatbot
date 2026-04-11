@@ -33,6 +33,9 @@ def get_response(user_input):
 
     elif "all logs" in user_input:
         return "\n".join(logs)
+    
+    elif "cpu" in user_input:
+    return get_cpu()
 
     else:
         return "Ask me about errors, warnings, or summary."
