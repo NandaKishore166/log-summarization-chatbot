@@ -2,6 +2,7 @@ def generate_summary(text):
     if not text:
         return "No important logs found."
 
-    # simple fast summary
-    sentences = text.split(".")
-    return " | ".join(sentences[:2])
+    errors = text.lower().count("error")
+    warnings = text.lower().count("warning")
+
+    return f"Summary: {errors} errors, {warnings} warnings detected in logs."

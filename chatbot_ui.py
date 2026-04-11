@@ -1,3 +1,4 @@
+import psutil
 from flask import Flask, render_template, request, jsonify
 from preprocess import clean_logs
 from extractor import extract_events
@@ -52,3 +53,12 @@ def chat():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))   # ✅ FIXED INDENTATION
     app.run(host="0.0.0.0", port=port)
+    def get_cpu():
+    return f"CPU Usage: {psutil.cpu_percent()}%"
+
+def get_memory():
+    mem = psutil.virtual_memory()
+    return f"Memory Usage: {mem.percent}%"
+
+def get_disk():
+    return f"Disk Usage: {psutil.disk_usage('/').percent}%"

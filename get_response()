@@ -1,0 +1,14 @@
+elif "cpu" in user_input:
+    return get_cpu()
+
+elif "memory" in user_input:
+    return get_memory()
+
+elif "disk" in user_input:
+    return get_disk()
+
+elif "status" in user_input:
+    return "System is running normally."
+
+elif "help" in user_input:
+    return "Try: errors, warnings, summary, cpu, memory, disk"

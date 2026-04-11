@@ -1,9 +1,6 @@
 def extract_events(logs):
-    keywords = ["error", "warning", "fail", "critical"]
     important = []
-
     for log in logs:
-        if any(k in log.lower() for k in keywords):
+        if any(word in log.lower() for word in ["error", "warning", "critical"]):
             important.append(log)
-
     return important
